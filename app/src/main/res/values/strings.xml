@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">ProjectWords</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="total_score_hint">Total Score: 0</string>
+    <string name="current_score_hint">Current Level Score: 0</string>
+    <string name="user_name_title">Kullanıcı adını giriniz</string>
+    <string name="user_name_hint">Kullanıcı Adınız</string>
+    <string name="bt_username_value">Tamam</string>
+    <string name="drawer_scores_title">Scores</string>
+    <string name="no_scores_title">Bu levelde Skor bulunmuyor !</string>
+    <string name="button_continue_text">Devam Et</string>
+    <string name="btn_new_game_text">Yeni Oyun</string>
+    <string name="btn_change_user_name_text">Kullanıcı Adını Değiştir</string>
+</resources>
