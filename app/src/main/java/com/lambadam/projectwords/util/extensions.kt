@@ -3,9 +3,9 @@ package com.lambadam.projectwords.util
 import android.app.Activity
 import android.app.AlertDialog
 import android.os.Bundle
+import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.lambadam.projectwords.R
 
 /**
  * Extension Function bir kotlin özelligi. Bu özellik icerigini degistiremeyecegiz Kütüphanelerdeki sınıflara
@@ -18,19 +18,22 @@ import com.lambadam.projectwords.R
  */
 fun Activity.addFragment(
     fragmentManager: FragmentManager,
-    fragment: Fragment
+    fragment: Fragment,
+    @IdRes containerId: Int
 ) {
     /**
      * Activity icine fragment ekler
      */
-    fragmentManager.beginTransaction().add(R.id.fragmentContainer,fragment).addToBackStack(null).commit()
+    fragmentManager.beginTransaction().add(containerId,fragment).addToBackStack(null).commit()
 }
 
 fun Activity.replaceFragment(
     fragmentManager: FragmentManager,
-    fragment: Fragment
+    fragment: Fragment,
+    @IdRes containerId: Int
+
 ) {
-    fragmentManager.beginTransaction().replace(R.id.fragmentContainer,fragment).addToBackStack(null).commit()
+    fragmentManager.beginTransaction().replace(containerId,fragment).addToBackStack(null).commit()
 
 }
 fun Activity.showDialog(
@@ -71,27 +74,32 @@ fun Fragment.showDialog(
 
 fun Fragment.addFragment(
     fragmentManager: FragmentManager,
-    fragment: Fragment
+    fragment: Fragment,
+    @IdRes containerId: Int
 ) {
-    fragmentManager.beginTransaction().add(R.id.fragmentContainer,fragment).addToBackStack(null).commit()
-}
-
-fun Fragment.replaceFragment(
-    fragmentManager: FragmentManager,
-    fragment: Fragment
-) {
-    fragmentManager.beginTransaction().replace(R.id.fragmentContainer,fragment).addToBackStack(null).commit()
+    fragmentManager.beginTransaction().add(containerId,fragment).addToBackStack(null).commit()
 }
 
 fun Fragment.replaceFragment(
     fragmentManager: FragmentManager,
     fragment: Fragment,
-    isContinue: Boolean
+    @IdRes containerId: Int
+
+) {
+    fragmentManager.beginTransaction().replace(containerId ,fragment).addToBackStack(null).commit()
+}
+
+fun Fragment.replaceFragment(
+    fragmentManager: FragmentManager,
+    fragment: Fragment,
+    isContinue: Boolean,
+    @IdRes containerId: Int
+
 ) {
     val bundle = Bundle()
      bundle.putBoolean("isContinue", isContinue)
     fragment.arguments = bundle
-    fragmentManager.beginTransaction().replace(R.id.fragmentContainer,fragment).addToBackStack(null).commit()
+    fragmentManager.beginTransaction().replace(containerId ,fragment).addToBackStack(null).commit()
 }
 
 

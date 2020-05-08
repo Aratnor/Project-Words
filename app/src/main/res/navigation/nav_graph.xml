@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/home_dest">
+
+    <fragment
+        android:id="@+id/login_dest"
+        android:name="com.lambadam.projectwords.login.LoginFragment"
+        android:label="Login Fragment"
+        tools:layout="@layout/fragment_login"
+        >
+        <action
+            android:id="@+id/login_action_to_home"
+            app:destination="@id/home_dest" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/home_dest"
+        android:name="com.lambadam.projectwords.home.HomeFragment"
+        android:label="Home Fragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/home_action_to_login"
+            app:destination="@id/login_dest"
+            />
+
+        <action
+            android:id="@+id/home_action_to_play_scene"
+            app:destination="@id/play_scene_dest"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/play_scene_dest"
+        android:name="com.lambadam.projectwords.playscene.PlaySceneFragment"
+        android:label="Play Scene Fragment"
+        tools:layout="@layout/fragment_play_scene" >
+
+        <argument
+            android:name="isContinueGame"
+            app:argType="boolean"
+            android:defaultValue="false"
+            />
+        <action
+            android:id="@+id/play_scene_action_to_home"
+            app:popUpTo="@id/home_dest"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/scores_dest"
+        android:name="com.lambadam.projectwords.scores.ScoresFragment"
+        android:label="Scores Fragment"
+        tools:layout="@layout/fragment_scores">
+        <action
+            android:id="@+id/scores_action_to_home"
+            app:popUpTo="@id/home_dest"
+            />
+    </fragment>
+
+</navigation>

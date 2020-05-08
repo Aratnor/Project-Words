@@ -7,16 +7,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lambadam.projectwords.R
-import com.lambadam.projectwords.home.HomeFragment
 import com.lambadam.projectwords.models.AddWord
 import com.lambadam.projectwords.models.LevelLetters
 import com.lambadam.projectwords.playscene.adapters.LetterAdapter
 import com.lambadam.projectwords.playscene.adapters.WordsAdapter
 import com.lambadam.projectwords.playscene.contract.OnAdapterUpdate
 import com.lambadam.projectwords.util.GameUtil
-import com.lambadam.projectwords.util.replaceFragment
 import com.lambadam.projectwords.util.showDialog
 import kotlinx.android.synthetic.main.fragment_play_scene.*
 import java.text.SimpleDateFormat
@@ -57,7 +56,8 @@ class PlaySceneFragment : Fragment(),
 
     private fun checkIsGameContinue() {
         if(arguments != null) {
-            val isContinue = requireArguments().getBoolean("isContinue")
+
+            val isContinue = requireArguments().getBoolean("isContinueGame")
             if (isContinue) viewModel.loadCurrentState()
         }
     }
@@ -125,7 +125,7 @@ class PlaySceneFragment : Fragment(),
                  "\nThird Level score: ", it[2],
                  "\nTebrikler oyunu bitirdiniz")
                 ) {
-                replaceFragment(requireActivity().supportFragmentManager, HomeFragment())
+                findNavController().navigate(R.id.play_scene_action_to_home)
             }
         })
 

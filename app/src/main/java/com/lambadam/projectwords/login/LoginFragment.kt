@@ -6,11 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 
 import com.lambadam.projectwords.R
-import com.lambadam.projectwords.playscene.PlaySceneFragment
-import com.lambadam.projectwords.util.addFragment
-import com.lambadam.projectwords.util.replaceFragment
 import com.lambadam.projectwords.util.showDialog
 import kotlinx.android.synthetic.main.fragment_login.*
 
@@ -35,7 +33,7 @@ class LoginFragment : Fragment() {
         btApply.setOnClickListener {
             if(viewModel.isValidUserName(etUserName.text.toString())){
                 viewModel.addUserNameToSharedPref(etUserName.text.toString())
-                replaceFragment(requireActivity().supportFragmentManager,PlaySceneFragment())
+                findNavController().navigate(R.id.login_action_to_home)
             } else {
                 showDialog("Lütfen kullanıcı adınızı kontrol edin","Kullanıcı adınız 3 karakterden fazla olmalı") {}
             }

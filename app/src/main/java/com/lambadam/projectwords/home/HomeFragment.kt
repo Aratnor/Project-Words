@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import com.lambadam.projectwords.BaseApplication
 
 import com.lambadam.projectwords.R
@@ -51,13 +53,14 @@ class HomeFragment : Fragment() {
      */
     private fun setButtonClicks() {
         btnChangeUserName.setOnClickListener {
-             replaceFragment(requireActivity().supportFragmentManager,LoginFragment()) }
+            findNavController().navigate(R.id.home_action_to_login)
+        }
         btnContinue.setOnClickListener {
-            replaceFragment(requireActivity().supportFragmentManager,PlaySceneFragment(),true)
+            val bundle = bundleOf("isContinueGame" to true)
+            findNavController().navigate(R.id.home_action_to_play_scene,bundle)
         }
         btnNewGame.setOnClickListener {
-            replaceFragment(requireActivity().supportFragmentManager,PlaySceneFragment())
-
+            findNavController().navigate(R.id.home_action_to_play_scene)
         }
     }
 

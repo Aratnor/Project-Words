@@ -1,7 +1,5 @@
 package com.lambadam.projectwords.login
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.lambadam.projectwords.BaseApplication
 
@@ -15,7 +13,7 @@ class LoginViewModel: ViewModel() {
         if(userName == null || userName.isEmpty()){
             return false
         }
-        return userName.length > 3
+        return userName.length >= 3
     }
 
 }

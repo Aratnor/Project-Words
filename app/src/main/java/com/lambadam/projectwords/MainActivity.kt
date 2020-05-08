@@ -1,7 +1,11 @@
 package com.lambadam.projectwords
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
+import androidx.navigation.ui.onNavDestinationSelected
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.lambadam.projectwords.basecontract.FragmentOnBackPressed
 import com.lambadam.projectwords.home.HomeFragment
@@ -23,8 +27,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setFragment()
-
-        setUpNavigationView()
+        
+        setSideNavView()
 
         setToolbar()
     }
@@ -33,29 +37,20 @@ class MainActivity : AppCompatActivity() {
         val userName = BaseApplication.INSTANCE.getPreferencesManager().getUserName()
         // Kullanıcı adı girilmemisse kullanıcı adını giricegi fragment gösterilir
         if(userName.isNotEmpty()) {
-            addFragment(supportFragmentManager, HomeFragment())
+            findNavController(R.id.nav_host_fragment).navigate(R.id.home_dest)
         } else {
-            addFragment(supportFragmentManager, LoginFragment())
+            findNavController(R.id.nav_host_fragment).navigate(R.id.login_dest)
         }
 
     }
 
-    /**
-     * NavigationView -> soldan sağa kaydırdığımızda acılan layout
-     * icindeki menu itemlarina tıkladığında ne yapılacagı burda karar veriyoruz
-     */
-    private fun setUpNavigationView() {
-        val navigationView: NavigationView = findViewById(R.id.nav_view)
-        navigationView.setNavigationItemSelectedListener {
-            when(it.itemId) {
-                R.id.scores_navigation_menu_item -> replaceFragment(supportFragmentManager,ScoresFragment())
-            }
+    private fun setSideNavView() {
+       nav_view?.setupWithNavController(findNavController(R.id.nav_host_fragment))
+    }
 
-            it.isChecked = true
-            drawer_layout.closeDrawers()
-
-            true
-        }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return item.onNavDestinationSelected(findNavController(R.id.nav_host_fragment))
+                || super.onOptionsItemSelected(item)
     }
 
     /**
@@ -69,21 +64,16 @@ class MainActivity : AppCompatActivity() {
      * Uygulamada geri tuşuna bastığınızda bu method cagrılır
      */
     override fun onBackPressed() {
-        val fragment =
-            supportFragmentManager.findFragmentById(R.id.fragmentContainer)
-        if(fragment is FragmentOnBackPressed) {
+        val navHostFragment = supportFragmentManager.primaryNavigationFragment
+        val fragment = navHostFragment?.childFragmentManager?.fragments?.get(0);
+         if(fragment is FragmentOnBackPressed) {
             (fragment as? FragmentOnBackPressed)?.onBackPressed()?.not()?.let {
                 if(it) {
-                    super.onBackPressed()
+                    findNavController(R.id.nav_host_fragment).popBackStack()
                 }
             }
         } else {
-            if (supportFragmentManager.backStackEntryCount > 1) {
-                //Go back to previous Fragment
-                supportFragmentManager.popBackStackImmediate();
-            } else {
-                finish()
-            }
+            findNavController(R.id.nav_host_fragment).popBackStack()
         }
     }
 
